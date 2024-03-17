@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:norq_ecom/presentation/features/splash/ui/splash_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:norq_ecom/firebase_options.dart';
 import 'package:norq_ecom/services/navigation_services/navigation.dart';
 import 'package:norq_ecom/services/navigation_services/route_names.dart';
 import 'package:norq_ecom/utils/console_log.dart';
@@ -15,12 +16,13 @@ void main() {
   runZonedGuarded<void>(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await Firebase.initializeApp();
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
 
       await SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-      runApp(EcomApp());
+      runApp(const EcomApp());
 
       if (kDebugMode) {
         Bloc.observer = DebuggableBlocObserver(describeStateChanges: false);
@@ -39,16 +41,21 @@ class EcomApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ecom App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const SplashScreen(),
-      initialRoute: RouteNames.splash,
-      onGenerateRoute: onGenerateAppRoute(
-        AppRoutesFactory(),
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Ecom App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0XFF2381AA),
+          ),
+          useMaterial3: true,
+        ),
+        initialRoute: RouteNames.splash,
+        onGenerateRoute: onGenerateAppRoute(
+          AppRoutesFactory(),
+        ),
       ),
     );
   }

@@ -1,15 +1,26 @@
+// ignore_for_file: implicit_call_tearoffs
+
 part of 'navigation.dart';
 
 final class AppRoutesFactory implements RoutesFactory {
   @override
   Route createLoginPageRoute() {
-    throw UnimplementedError();
+    return CustomRoute(
+      builder: LoginRouteBuilder(),
+    );
+  }
+
+  @override
+  Route createSignUpPageRoute() {
+    return CustomRoute(
+      builder: SignupRouteBuilder(),
+    );
   }
 
   @override
   Route createSplashPageRoute() {
     return CustomRoute(
-      builder: SplashScreenRouteBuilder().call,
+      builder: SplashScreenRouteBuilder(),
     );
   }
 }
