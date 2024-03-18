@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:norq_ecom/firebase_options.dart';
+import 'package:norq_ecom/services/hive_services/hive_services.dart';
 import 'package:norq_ecom/services/navigation_services/navigation.dart';
 import 'package:norq_ecom/services/navigation_services/route_names.dart';
 import 'package:norq_ecom/utils/console_log.dart';
@@ -18,7 +19,7 @@ void main() {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform);
-
+      await HiveService().initHive();
       await SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 

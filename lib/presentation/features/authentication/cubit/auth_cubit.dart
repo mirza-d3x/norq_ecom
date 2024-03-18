@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, unnecessary_import
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -7,7 +9,7 @@ import 'package:norq_ecom/utils/console_log.dart';
 part 'auth_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationCubit() : super(AuhtInitial(success: false)) {
+  AuthenticationCubit() : super(AuhtInitial(success: false, message: "")) {
     init();
   }
 
@@ -32,7 +34,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       final response = await _authentication.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       consoleLog("response_body: $response");
-      emit(AuhtInitial(success: response['success']));
+      emit(AuhtInitial(
+          success: response['success'], message: response['message']));
     } catch (error, stackTrace) {
       consoleLog("Failed To Login with Email",
           error: error, stackTrace: stackTrace);
@@ -47,9 +50,21 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       final response = await _authentication.signUpWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       consoleLog("response_body: $response");
-      emit(AuhtInitial(success: response['success']));
+      emit(AuhtInitial(
+          success: response['success'], message: response['message']));
     } catch (error, stackTrace) {
       consoleLog("Failed To Signup with Email",
+          error: error, stackTrace: stackTrace);
+    }
+  }
+
+  void logOutUser() async {
+    try {
+      emit(AuthLoading());
+      await _authentication.signOut();
+      emit(UserLoggedOut());
+    } catch (error, stackTrace) {
+      consoleLog("Error while logging out: ",
           error: error, stackTrace: stackTrace);
     }
   }

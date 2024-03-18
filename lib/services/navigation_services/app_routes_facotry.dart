@@ -23,6 +23,27 @@ final class AppRoutesFactory implements RoutesFactory {
       builder: SplashScreenRouteBuilder(),
     );
   }
+
+  @override
+  Route createHomePageRoute() {
+    return CustomRoute(
+      builder: HomeScreenBuilder(),
+    );
+  }
+
+  @override
+  Route createCartPageRoute() {
+    return CustomRoute(
+      builder: CartRouteBuilder(),
+    );
+  }
+
+  @override
+  Route createProductsPageRoute(ProductModel model) {
+    return CustomRoute(
+      builder: ProductDetailsBuilder(model: model),
+    );
+  }
 }
 
 class CustomRoute<T> extends MaterialPageRoute<T> {

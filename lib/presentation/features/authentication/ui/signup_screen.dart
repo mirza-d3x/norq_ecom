@@ -5,6 +5,7 @@ import 'package:norq_ecom/constants/images_assets.dart';
 import 'package:norq_ecom/presentation/features/authentication/cubit/auth_cubit.dart';
 import 'package:norq_ecom/presentation/widgets/custom_elevated_button.dart';
 import 'package:norq_ecom/presentation/widgets/custom_textfield.dart';
+import 'package:norq_ecom/services/navigation_services/navigation_services.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -15,7 +16,20 @@ class SignupScreen extends StatelessWidget {
     final AuthenticationCubit cubit =
         BlocProvider.of<AuthenticationCubit>(context);
     return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AuhtInitial) {
+          if (state.success) {
+            context.navigationService.createHomePageRoute(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+        }
+      },
       child: SafeArea(
         child: Scaffold(
           body: Container(

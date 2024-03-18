@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:norq_ecom/services/api_services/models/products_model.dart';
 import 'package:norq_ecom/services/navigation_services/route_names.dart';
 
 class NavigationServices {
@@ -21,6 +21,23 @@ class NavigationServices {
       RouteNames.splash,
       (route) => false,
     );
+  }
+
+  void createHomePageRoute(BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      RouteNames.home,
+      (route) => false,
+    );
+  }
+
+  void createCartPageRoute(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      RouteNames.cart,
+    );
+  }
+
+  void createProductsPageRoute(BuildContext context, ProductModel model) {
+    Navigator.of(context).pushNamed(RouteNames.products, arguments: model);
   }
 }
 

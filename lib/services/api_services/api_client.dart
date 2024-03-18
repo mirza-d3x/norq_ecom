@@ -6,7 +6,7 @@ class ApiClient {
   static const String baseUrl = 'https://fakestoreapi.com';
 
   // Function to handle HTTP GET request
-  static Future<Map<String, dynamic>> getRequest(String endpoint) async {
+  Future getRequest(String endpoint) async {
     try {
       final String url = baseUrl + endpoint;
       consoleLog("[API_REQUEST] sending reqeust to: $url");
@@ -18,7 +18,7 @@ class ApiClient {
   }
 
   // Function to handle HTTP POST request
-  static Future<Map<String, dynamic>> postRequest(
+  Future<Map<String, dynamic>> postRequest(
       String endpoint, dynamic data) async {
     try {
       final String url = baseUrl + endpoint;
@@ -36,8 +36,7 @@ class ApiClient {
   }
 
   // Function to handle HTTP PUT request
-  static Future<Map<String, dynamic>> putRequest(
-      String endpoint, dynamic data) async {
+  Future<Map<String, dynamic>> putRequest(String endpoint, dynamic data) async {
     try {
       final String url = baseUrl + endpoint;
       consoleLog(
@@ -54,7 +53,7 @@ class ApiClient {
   }
 
   // Function to handle HTTP DELETE request
-  static Future<Map<String, dynamic>> deleteRequest(String endpoint) async {
+  Future<Map<String, dynamic>> deleteRequest(String endpoint) async {
     try {
       final String url = baseUrl + endpoint;
       consoleLog("[API_REQUEST] sending reqeust to: $url");
@@ -66,7 +65,7 @@ class ApiClient {
   }
 
   // Function to handle HTTP response
-  static Map<String, dynamic> _handleResponse(http.Response response) {
+  _handleResponse(http.Response response) {
     if (response.statusCode == 200) {
       consoleLog(
           "[API_RESPONSE] \n status_code: ${response.statusCode} response_body: ${response.body}");

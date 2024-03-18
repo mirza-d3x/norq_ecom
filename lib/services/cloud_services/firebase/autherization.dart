@@ -15,7 +15,11 @@ class Authentication {
         password: password,
       );
 
-      return {'success': true, 'user': userCredential.user};
+      return {
+        'success': true,
+        'message': 'success',
+        'user': userCredential.user
+      };
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return {'success': false, 'message': 'Account does not exist'};
@@ -42,7 +46,11 @@ class Authentication {
         password: password,
       );
 
-      return {'success': true, 'user': userCredential.user};
+      return {
+        'success': true,
+        'message': 'success',
+        'user': userCredential.user
+      };
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return {'success': false, 'message': 'Password too weak'};
